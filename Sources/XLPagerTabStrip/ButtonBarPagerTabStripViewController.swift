@@ -60,6 +60,8 @@ public struct ButtonBarPagerTabStripSettings {
         public var buttonBarItemsShouldFillAvailableWidth = true
         // only used if button bar is created programaticaly and not using storyboards or nib files
         public var buttonBarHeight: CGFloat?
+        public var bottomLineHeight: CGFloat = 0
+        public var bottomLineColor: UIColor?
     }
 
     public var style = Style()
@@ -121,6 +123,9 @@ open class ButtonBarPagerTabStripViewController: PagerTabStripViewController, Pa
                 flowLayout.scrollDirection = .horizontal
                 let buttonBarHeight = settings.style.buttonBarHeight ?? 44
                 let buttonBar = ButtonBarView(frame: CGRect(x: 0, y: 0, width: view.frame.size.width, height: buttonBarHeight), collectionViewLayout: flowLayout)
+                let bottomLineView = UIView(frame: CGRect(x: 0, y: buttonBar.frame.height - settings.style.bottomLineHeight, width: buttonBar.frame.width, height: settings.style.bottomLineHeight))
+                bottomLineView.backgroundColor = settings.style.bottomLineColor ?? .lightGray
+                buttonBar.addSubview(bottomLineView)
                 buttonBar.backgroundColor = .orange
                 buttonBar.selectedBar.backgroundColor = .black
                 buttonBar.autoresizingMask = .flexibleWidth
