@@ -56,6 +56,7 @@ open class ButtonBarView: UICollectionView {
             updateSelectedBarYPosition()
         }
     }
+    var selectedBarWidth: CGFloat?
     var selectedBarVerticalAlignment: SelectedBarVerticalAlignment = .bottom
     var selectedBarAlignment: SelectedBarAlignment = .center
     var selectedIndex = 0
@@ -124,7 +125,12 @@ open class ButtonBarView: UICollectionView {
 
         selectedBarFrame.size.width = selectedCellFrame.size.width
         selectedBarFrame.origin.x = selectedCellFrame.origin.x
-
+      
+        if let selectedBarWidth = self.selectedBarWidth {
+            selectedBarFrame.size.width = selectedBarWidth
+            selectedBarFrame.origin.x = selectedCellFrame.origin.x + (selectedCellFrame.width - selectedBarWidth) / 2
+        }
+        
         if animated {
             UIView.animate(withDuration: 0.3, animations: { [weak self] in
                 self?.selectedBar.frame = selectedBarFrame
