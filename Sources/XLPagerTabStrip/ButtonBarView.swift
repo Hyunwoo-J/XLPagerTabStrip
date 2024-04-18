@@ -61,6 +61,9 @@ open class ButtonBarView: UICollectionView {
     var selectedBarAlignment: SelectedBarAlignment = .center
     var selectedIndex = 0
 
+    open var firstTapSelectedBarWidth: CGFloat?
+    open var secondTapSelectedBarWidth: CGFloat?
+
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         addSubview(selectedBar)
@@ -126,6 +129,17 @@ open class ButtonBarView: UICollectionView {
         selectedBarFrame.size.width = selectedCellFrame.size.width
         selectedBarFrame.origin.x = selectedCellFrame.origin.x
       
+        let selectedBarWidths = [self.firstTapSelectedBarWidth, self.secondTapSelectedBarWidth]
+        
+        if self.selectedIndex < selectedBarWidths.count {
+          if let _ = selectedBarWidths[self.selectedIndex] {
+            UIView.animate(withDuration: 0.3, animations: { [weak self] in
+              guard let self else { return }
+              self.selectedBarWidth = selectedBarWidths[selectedIndex]
+            })
+          }
+        }
+
         if let selectedBarWidth = self.selectedBarWidth {
             selectedBarFrame.size.width = selectedBarWidth
             selectedBarFrame.origin.x = selectedCellFrame.origin.x + (selectedCellFrame.width - selectedBarWidth) / 2
