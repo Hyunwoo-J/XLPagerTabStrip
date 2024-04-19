@@ -61,8 +61,8 @@ open class ButtonBarView: UICollectionView {
     var selectedBarAlignment: SelectedBarAlignment = .center
     var selectedIndex = 0
 
-    open var firstTapSelectedBarWidth: CGFloat?
-    open var secondTapSelectedBarWidth: CGFloat?
+    var firstTapSelectedBarWidth: CGFloat?
+    var secondTapSelectedBarWidth: CGFloat?
 
     required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
